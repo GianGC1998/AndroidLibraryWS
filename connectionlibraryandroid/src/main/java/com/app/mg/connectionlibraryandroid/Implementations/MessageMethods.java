@@ -10,11 +10,11 @@ import org.java_websocket.client.WebSocketClient;
 
 public class MessageMethods<T> implements IMessageMethods<T> {
     @Override
-    public MessageBody ConstructMessageBody(Context context, T body) {
+    public MessageBody ConstructMessageBody(String myIpAddress, T body) {
         ConnectMethods connectMethods = new ConnectMethods();
         return new MessageBody<T>()
                 .setBody(body)
-                .setSender(connectMethods.FindMyIpAddress(context));
+                .setSender(myIpAddress);
     }
 
     @Override
@@ -24,8 +24,8 @@ public class MessageMethods<T> implements IMessageMethods<T> {
     }
 
     @Override
-    public void SendMessageBody(T body, WebSocketClient webSocketClient,Context context) {
-        MessageBody<T> messageBody = ConstructMessageBody(context,body);
+    public void SendMessageBody(T body, WebSocketClient webSocketClient,String myIpAddress) {
+        MessageBody<T> messageBody = ConstructMessageBody(myIpAddress,body);
         SendMessageBody(messageBody,webSocketClient);
     }
 

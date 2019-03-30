@@ -21,11 +21,10 @@ import static com.app.mg.connectionlibraryandroid.Helpers.HelperMethods.ConnectT
 
 public final class ConnectMethods implements IConnectMethods {
     @Override
-    public List<String> FindServers(Context context, String port) {
+    public List<String> FindServers(String myIpAddress, String port) {
         List<String> ipServers = new ArrayList<>();
         List<PossibleServerEntity<String,Boolean>> possiblesServer = new ArrayList<>();
         List<WebSocketClientImplementation> wSCImplementation = new ArrayList<>();
-        String myIpAddress = FindMyIpAddress(context);
 
         String[] ipArray = myIpAddress.split("\\.");
         List<String> ipArray2 = new ArrayList<>();
@@ -55,9 +54,9 @@ public final class ConnectMethods implements IConnectMethods {
     }
 
     @Override
-    public URI GetUriServer(Context context, String port) {
+    public URI GetUriServer(String ipAddress, String port) {
             try {
-                return new URI("ws://" + FindMyIpAddress(context) + ":8080");
+                return new URI("ws://" + ipAddress + port);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
                 return null;

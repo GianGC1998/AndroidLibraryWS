@@ -9,11 +9,11 @@ import org.java_websocket.client.WebSocketClient;
 
 
 public interface IMessageMethods<T> {
-    MessageBody ConstructMessageBody(Context context, T body);
+    MessageBody ConstructMessageBody(String myIpAddress, T body);
 
     void SendMessageBody(MessageBody messageBody,  WebSocketClient webSocketClient);
 
-    void SendMessageBody(T body,  WebSocketClient webSocketClient,Context context);
+    void SendMessageBody(T body,  WebSocketClient webSocketClient,String myIpAddress);
 
     MessageBody<T> ReceiveMessageBody(String message);
 }

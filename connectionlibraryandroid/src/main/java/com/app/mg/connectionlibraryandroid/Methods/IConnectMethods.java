@@ -10,9 +10,9 @@ public interface IConnectMethods {
 
     String FindMyIpAddress(Context context);
 
-    List<String> FindServers(Context context, String port);
+    List<String> FindServers(String myIpAddress, String port);
 
     InetSocketAddress GetISocketAddres(Context context, String port);
 
-    URI GetUriServer(Context context, String port);
+    URI GetUriServer(String ipAddress,  String port);
 }
