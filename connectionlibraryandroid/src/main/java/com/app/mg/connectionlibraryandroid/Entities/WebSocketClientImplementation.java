@@ -21,7 +21,7 @@ public class WebSocketClientImplementation extends WebSocketClient {
     public void onOpen(ServerHandshake handshakedata) {
         possibleServers.add(ipToFind);
         synchronized(possibleServers) {
-            this.notify();
+            possibleServers.notify();
         }
         this.close();
     }
@@ -39,7 +39,7 @@ public class WebSocketClientImplementation extends WebSocketClient {
     @Override
     public void onError(Exception ex) {
         synchronized(possibleServers) {
-            this.notify();
+            possibleServers.notify();
         }
     }
 }
