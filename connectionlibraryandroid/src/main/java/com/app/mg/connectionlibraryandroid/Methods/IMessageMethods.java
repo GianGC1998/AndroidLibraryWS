@@ -8,12 +8,12 @@ import com.app.mg.connectionlibraryandroid.Entities.WebSocketClientImplementatio
 import org.java_websocket.client.WebSocketClient;
 
 
-public interface IMessageMethods<T> {
+public interface IMessageMethods<T,V extends WebSocketClient> {
     MessageBody ConstructMessageBody(String myIpAddress, T body);
 
-    void SendMessageBody(MessageBody messageBody,  WebSocketClient webSocketClient);
+    void SendMessageBody(MessageBody messageBody,  V webSocketClient);
 
-    void SendMessageBody(T body,  WebSocketClient webSocketClient,String myIpAddress);
+    void SendMessageBody(T body,  V webSocketClient,String myIpAddress);
 
     MessageBody<T> ReceiveMessageBody(String message);
 }

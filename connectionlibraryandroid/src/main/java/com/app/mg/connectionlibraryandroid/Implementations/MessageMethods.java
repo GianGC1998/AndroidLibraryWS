@@ -8,7 +8,7 @@ import com.app.mg.connectionlibraryandroid.Methods.IMessageMethods;
 
 import org.java_websocket.client.WebSocketClient;
 
-public class MessageMethods<T> implements IMessageMethods<T> {
+public class MessageMethods<T,V extends WebSocketClient> implements IMessageMethods<T,V> {
     @Override
     public MessageBody ConstructMessageBody(String myIpAddress, T body) {
         ConnectMethods connectMethods = new ConnectMethods();
@@ -18,13 +18,13 @@ public class MessageMethods<T> implements IMessageMethods<T> {
     }
 
     @Override
-    public void SendMessageBody(MessageBody messageBody, WebSocketClient webSocketClient) {
+    public void SendMessageBody(MessageBody messageBody, V webSocketClient) {
         Gson gson = new Gson();
         webSocketClient.send(gson.toJson(messageBody));
     }
 
     @Override
-    public void SendMessageBody(T body, WebSocketClient webSocketClient,String myIpAddress) {
+    public void SendMessageBody(T body, V webSocketClient,String myIpAddress) {
         MessageBody<T> messageBody = ConstructMessageBody(myIpAddress,body);
         SendMessageBody(messageBody,webSocketClient);
     }
