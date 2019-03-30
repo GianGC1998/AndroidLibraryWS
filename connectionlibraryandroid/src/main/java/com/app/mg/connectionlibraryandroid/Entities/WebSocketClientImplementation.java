@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebSocketClientImplementation extends WebSocketClient {
-    private final List<String> possibleServers;
+
+    private final List<PossibleServerEntity<String,Boolean>> possibleServers;
     private String ipToFind;
 
-    public WebSocketClientImplementation(URI serverUri,List<String> possibleServers,String ipToFind ) {
+    public WebSocketClientImplementation(URI serverUri,List<PossibleServerEntity<String,Boolean>> possibleServers,String ipToFind ) {
         super(serverUri);
         this.possibleServers = possibleServers;
         this.ipToFind = ipToFind;
@@ -19,10 +20,7 @@ public class WebSocketClientImplementation extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        possibleServers.add(ipToFind);
-        synchronized(possibleServers) {
-            possibleServers.notify();
-        }
+        possibleServers.add(new PossibleServerEntity<>(ipToFind, true));
         this.close();
     }
 
@@ -38,8 +36,6 @@ public class WebSocketClientImplementation extends WebSocketClient {
 
     @Override
     public void onError(Exception ex) {
-        synchronized(possibleServers) {
-            possibleServers.notify();
-        }
+        possibleServers.add(new PossibleServerEntity<>(ipToFind, false));
     }
 }

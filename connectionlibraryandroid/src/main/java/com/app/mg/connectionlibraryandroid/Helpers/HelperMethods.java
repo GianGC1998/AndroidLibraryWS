@@ -2,6 +2,7 @@ package com.app.mg.connectionlibraryandroid.Helpers;
 
 import android.widget.Toast;
 
+import com.app.mg.connectionlibraryandroid.Entities.PossibleServerEntity;
 import com.app.mg.connectionlibraryandroid.Entities.WebSocketClientImplementation;
 
 import org.java_websocket.client.WebSocketClient;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public final class HelperMethods {
 
-    public static void ConnectToPossibleWebSocket(List<WebSocketClientImplementation> wSCImplementation,final List<String> ipList, final String ipToFind, String port) {
+    public static void ConnectToPossibleWebSocket(List<WebSocketClientImplementation> wSCImplementation, final List<PossibleServerEntity<String,Boolean>> ipList, final String ipToFind, String port) {
 
         URI uri;
         try {
@@ -26,12 +27,5 @@ public final class HelperMethods {
         WebSocketClientImplementation webSocketClient = new WebSocketClientImplementation(uri,ipList,ipToFind);
         wSCImplementation.add(webSocketClient);
         wSCImplementation.get(wSCImplementation.size()-1).connect();
-        synchronized (ipList){
-            try {
-                ipList.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

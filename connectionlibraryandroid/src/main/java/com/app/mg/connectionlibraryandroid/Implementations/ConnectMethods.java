@@ -5,7 +5,7 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
-import com.app.mg.connectionlibraryandroid.Entities.MessageBody;
+import com.app.mg.connectionlibraryandroid.Entities.PossibleServerEntity;
 import com.app.mg.connectionlibraryandroid.Entities.WebSocketClientImplementation;
 import com.app.mg.connectionlibraryandroid.Methods.IConnectMethods;
 
@@ -19,7 +19,8 @@ import static com.app.mg.connectionlibraryandroid.Helpers.HelperMethods.ConnectT
 public final class ConnectMethods implements IConnectMethods {
     @Override
     public List<String> FindServers(Context context, String port) {
-        List<String> possiblesServer = new ArrayList<>();
+        List<String> ipServers = new ArrayList<>();
+        List<PossibleServerEntity<String,Boolean>> possiblesServer = new ArrayList<>();
         List<WebSocketClientImplementation> wSCImplementation = new ArrayList<>();
         String myIpAddress = FindMyIpAddress(context);
 
@@ -32,7 +33,17 @@ public final class ConnectMethods implements IConnectMethods {
             String ipToFind = newIpAddress+Integer.toString(i);
             ConnectToPossibleWebSocket(wSCImplementation,possiblesServer,ipToFind,port);
         }
-        return possiblesServer;
+        while(possiblesServer.size() < 255){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        for (PossibleServerEntity<String,Boolean> possibleServer: possiblesServer) {
+            if(possibleServer.y) ipServers.add(possibleServer.x);
+        }
+        return ipServers;
     }
 
 
