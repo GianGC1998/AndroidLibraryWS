@@ -9,6 +9,9 @@ import com.app.mg.connectionlibraryandroid.Entities.PossibleServerEntity;
 import com.app.mg.connectionlibraryandroid.Entities.WebSocketClientImplementation;
 import com.app.mg.connectionlibraryandroid.Methods.IConnectMethods;
 
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +47,22 @@ public final class ConnectMethods implements IConnectMethods {
             if(possibleServer.y) ipServers.add(possibleServer.x);
         }
         return ipServers;
+    }
+
+    @Override
+    public InetSocketAddress GetISocketAddres(Context context, String port) {
+        return new InetSocketAddress(FindMyIpAddress(context), 8080);
+    }
+
+    @Override
+    public URI GetUriServer(Context context, String port) {
+            try {
+                return new URI("ws://" + FindMyIpAddress(context) + ":8080");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                return null;
+            }
+
     }
 
 

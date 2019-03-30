@@ -24,6 +24,12 @@ public class MessageMethods<T> implements IMessageMethods<T> {
     }
 
     @Override
+    public void SendMessageBody(T body, WebSocketClient webSocketClient,Context context) {
+        MessageBody<T> messageBody = ConstructMessageBody(context,body);
+        SendMessageBody(messageBody,webSocketClient);
+    }
+
+    @Override
     public MessageBody<T> ReceiveMessageBody(String message) {
         Gson gson = new Gson();
         return gson.fromJson(message,MessageBody.class);

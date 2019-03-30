@@ -13,5 +13,7 @@ public interface IMessageMethods<T> {
 
     void SendMessageBody(MessageBody messageBody,  WebSocketClient webSocketClient);
 
+    void SendMessageBody(T body,  WebSocketClient webSocketClient,Context context);
+
     MessageBody<T> ReceiveMessageBody(String message);
 }
