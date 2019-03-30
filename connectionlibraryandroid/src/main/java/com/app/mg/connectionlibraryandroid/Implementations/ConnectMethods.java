@@ -56,7 +56,7 @@ public final class ConnectMethods implements IConnectMethods {
     @Override
     public URI GetUriServer(String ipAddress, String port) {
             try {
-                return new URI("ws://" + ipAddress + port);
+                return new URI("ws://" + ipAddress +":"+ port);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
                 return null;
