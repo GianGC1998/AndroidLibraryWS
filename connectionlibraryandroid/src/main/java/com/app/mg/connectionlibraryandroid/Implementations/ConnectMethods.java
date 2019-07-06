@@ -37,7 +37,7 @@ public final class ConnectMethods implements IConnectMethods {
         }
         while(possiblesServer.size() < 255){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
