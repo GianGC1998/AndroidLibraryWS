@@ -32,12 +32,12 @@ public final class ConnectMethods implements IConnectMethods {
         String newIpAddress = ipArray2.get(0) + "." + ipArray2.get(1) + "." + ipArray2.get(2) + ".";
 
         for(int i = 1; i<256;i++){
-            String ipToFind = newIpAddress+Integer.toString(i);
+            String ipToFind = newIpAddress+i;
             ConnectToPossibleWebSocket(wSCImplementation,possiblesServer,ipToFind,port);
         }
         while(possiblesServer.size() < 255){
             try {
-                Thread.sleep(10);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

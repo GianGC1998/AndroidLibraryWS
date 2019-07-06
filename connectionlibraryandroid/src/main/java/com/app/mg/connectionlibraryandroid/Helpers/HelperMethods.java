@@ -15,7 +15,6 @@ import java.util.List;
 public final class HelperMethods {
 
     public static void ConnectToPossibleWebSocket(List<WebSocketClientImplementation> wSCImplementation, final List<PossibleServerEntity<String,Boolean>> ipList, final String ipToFind, String port) {
-
         URI uri;
         try {
             uri = new URI("ws://" + ipToFind+":" +port);
@@ -23,7 +22,6 @@ public final class HelperMethods {
             e.printStackTrace();
             return;
         }
-
         WebSocketClientImplementation webSocketClient = new WebSocketClientImplementation(uri,ipList,ipToFind);
         wSCImplementation.add(webSocketClient);
         wSCImplementation.get(wSCImplementation.size()-1).connect();
